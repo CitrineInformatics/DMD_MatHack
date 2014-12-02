@@ -1,1 +1,1 @@
-data = loadCSV(perovskite_info.cvs);
+data = loadCSV("perovskite_info.csv");
