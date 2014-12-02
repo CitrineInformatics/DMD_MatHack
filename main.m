@@ -1,7 +1,7 @@
 % takes in input_data and solution_data
 % input_data is format Nperovskites x Nelementalfeatures
 % solution_data is format Nperovskites x 7
-% (Hf,CBdir,CBind,VBdir,VBind,DirGap,IndGap)
+% (CBind, EGind, Hf, CBdir, EGdir, VBdir, VBind)
 
 % number of random feature combinations to use
 Ncombos = 10000;
