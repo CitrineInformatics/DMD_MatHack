@@ -1,0 +1,1 @@
+data = loadCSV(perovskite_info.cvs);
