@@ -13,3 +13,4 @@ dataA = arrayfun(@(x)(strtrunc(dataA{x,1}, length(dataA{x,1})-1)), 1:size(dataA,
 dataB= arrayfun(@(x)(strtrunc(dataB{x,1}, length(dataB{x,1})-1)), 1:size(dataB,1), 'uniformoutput', false);
 dataA = dataA';
 dataB = dataB';
+
