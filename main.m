@@ -23,13 +23,13 @@ init_samples = randperm(Nperovskites,Nsample_per_itr);
 samples(init_samples) = true;
 
 % model fit
-Hf = lasso(features(samples,:),solution_data(samples,1));
-CBdir = lasso(features(samples,:),solution_data(samples,2));
-CBind= lasso(features(samples,:),solution_data(samples,3));
-VBdir = lasso(features(samples,:),solution_data(samples,4));
-VBind= lasso(features(samples,:),solution_data(samples,5));
-DirGap = lasso(features(samples,:),solution_data(samples,6));
-IndGap= lasso(features(samples,:),solution_data(samples,7));
+Hf = lasso(features(samples,:),solution_data(samples,3));
+CBdir = lasso(features(samples,:),solution_data(samples,4));
+CBind= lasso(features(samples,:),solution_data(samples,1));
+VBdir = lasso(features(samples,:),solution_data(samples,6));
+VBind= lasso(features(samples,:),solution_data(samples,7));
+EGind = lasso(features(samples,:),solution_data(samples,2));
+EGdir= lasso(features(samples,:),solution_data(samples,5));
 
 % takes the different lasso'd models and computes a single value for each
 % case, setting all previously sampled values to -Inf
