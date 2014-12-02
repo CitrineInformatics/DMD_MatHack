@@ -5,15 +5,19 @@ function features = feature_combiner(input_data,Ncombos)
     permFuncs = randi(4,3,Ncombos);
     features = zeros(Nsamples,Ncombos+Nfeatures);
     features(:,1:Nfeatures) = input_data;
+    matlabpool('OPEN',3);
     for i=1:Nsamples
-        for j=1:Ncombos
+        parfor j=1:Ncombos
             feat = input_data(i,permlist(:,j));
             k1 = eval(sprintf('f%d(feat(1),feat(2))',permFuncs(1,j)));
             k2 = eval(sprintf('f%d(feat(3),feat(4))',permFuncs(2,j)));
             features(i,j+Nfeatures) = eval(sprintf('f%d(k1,k2)',permFuncs(3,j)));
         end
+        if mod(i,100) == 0
+            fprintf('i:%d\n',i);
+        end
     end
-    
+    matlabpool('CLOSE');
 end
 
 function v = f1(x,y)
