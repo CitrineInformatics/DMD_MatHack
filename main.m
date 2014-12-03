@@ -1,16 +1,22 @@
 Ntrain = 1000;
 lambda = 10;
 Niter = 10000;
-Ncombos = 1000;
+Ncombos = 1;
 
 [input_data solution_data] = loadData;
 [normalData means ranges] = featureNorm(input_data);
 addData = featureCreator(normalData, Ncombos);
-X = [ones(size(normalData),1) normalData addData];
+X = [ones(size(normalData,1),1) normalData addData];
 
 
 trainSet = randperm(size(X,1), Ntrain);
 param = zeros(size(X,2),size(solution_data,2));
+
+%  scale all energies
+solution_data(:,1) = solution_data(:,1) - 4.5;
+solution_data(:,4) = solution_data(:,4) - 4.5;
+solution_data(:,6) = solution_data(:,6) - 4.5;
+solution_data(:,7) = solution_data(:,7) - 4.5;
 
 for i=1:size(solution_data,2),
   x = X(trainSet,:);
@@ -24,18 +30,7 @@ end;
 
 predicted_data = X*param;
 
-%  scale all energies
-predicted_data(:,1) = predicted_data(:,1) - 4.5;
-predicted_data(:,4) = predicted_data(:,4) - 4.5;
-predicted_data(:,6) = predicted_data(:,6) - 4.5;
-predicted_data(:,7) = predicted_data(:,7) - 4.5;
-
 [predictedMerit] = objective(predicted_data);
-
-solution_data(:,1) = solution_data(:,1) - 4.5;
-solution_data(:,4) = solution_data(:,4) - 4.5;
-solution_data(:,6) = solution_data(:,6) - 4.5;
-solution_data(:,7) = solution_data(:,7) - 4.5;
 
 [totalMerit] = objective(solution_data);
 
