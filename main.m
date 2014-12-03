@@ -1,6 +1,4 @@
 Ntrain = 1000;
-lambda = 10;
-Niter = 10000;
 Ncombos = 1;
 
 [input_data solution_data] = loadData;
@@ -18,21 +16,11 @@ solution_data(:,4) = solution_data(:,4) - 4.5;
 solution_data(:,6) = solution_data(:,6) - 4.5;
 solution_data(:,7) = solution_data(:,7) - 4.5;
 
-for i=1:size(solution_data,2),
-  x = X(trainSet,:);
-  initial_theta = rand(size(X, 2), 1);
-  y = solution_data(trainSet,i);
-  options = optimset('GradObj', 'on', 'MaxIter', Niter);
-  [theta, J, exit_flag] = ...
-  fminunc(@(t)(computeCost(t, x, y, lambda)), initial_theta, options);
-  param(:,i) = theta;
-end;
-
-predicted_data = X*param;
-
-[predictedMerit] = objective(predicted_data);
-
-[totalMerit] = objective(solution_data);
+prior_samples = [];
+for i=1:2
+    [new_samples,new_scores] = directedSearch(X,solution_data,prior_samples,Ntrain);
+    prior_samples = [prior_samples; new_samples];
+end
 
 
 scatter(predictedMerit, totalMerit, 'r');
